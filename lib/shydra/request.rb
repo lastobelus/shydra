@@ -1,8 +1,10 @@
+require_relative 'response'
+
 module Shydra  
   class Request < Typhoeus::Request
     SHOPIFY_API_MAX_LIMIT = 250
 
-    attr_accessor :resource
+    attr_accessor :resource, :data_root
     attr_accessor :options
 
     def self.base_uri
@@ -48,8 +50,12 @@ module Shydra
       super(uri.to_s)
     end
 
+    def finish(response, bypass_memoization = nil)
+      response.extend Shydra::Response
+      super(response, bypass_memoization)
+    end
 
-  end
+  end  
 end
 
 

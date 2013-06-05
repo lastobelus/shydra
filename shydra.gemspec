@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "typhoeus", ">= 0.6.3"
   spec.add_runtime_dependency "shopify_api", ">= 3.0.3"
+  spec.add_runtime_dependency "oj"
   spec.add_development_dependency "bundler", ">= 1.3"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
