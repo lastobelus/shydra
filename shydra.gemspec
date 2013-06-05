@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Shydra::VERSION
   spec.authors       = ["Michael Johnston"]
   spec.email         = ["lastobelus@mac.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{A fast, parallel shopify api client using typhoeus/hydra. Attempts to balance being a good citizen about api limits and fetching multiple apai records in parallel. }
+  spec.summary       = %q{A fast, parallel shopify api client using typhoeus/hydraa}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -18,6 +18,10 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.3"
+
+  spec.add_runtime_dependency "typhoeus", ">= 0.6.3"
+  spec.add_runtime_dependency "shopify_api", ">= 3.0.3"
+  spec.add_development_dependency "bundler", ">= 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
 end

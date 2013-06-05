@@ -1,6 +1,6 @@
 # Shydra
 
-TODO: Write a gem description
+A fast, parallel shopify api client using typhoeus/hydra. Attempts to balance being a good citizen about api limits and fetching multiple apai records in parallel.
 
 ## Installation
 
