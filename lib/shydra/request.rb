@@ -25,12 +25,18 @@ module Shydra
 
       @options[:limit] ||= SHOPIFY_API_MAX_LIMIT
 
-      @resource = @resource.pluralize unless (@resource == 'shop')
+      resource_path = @resource
+      resource_path = resource_path.pluralize unless (@resource == 'shop')
 
-      path = ['admin', @resource]
+
+      path = [resource_path]
+      path.unshift('admin') unless Request.base_uri.path[-1] == '/' #handle quirk of URI.merge
+
+      @data_root = @resource
       if @count
         path << 'count'
         @options.delete(:limit)
+        @data_root = 'count'
       elsif @id
         path << @id.to_s
       end
@@ -41,5 +47,9 @@ module Shydra
 
       super(uri.to_s)
     end
+
+
   end
 end
+
+
