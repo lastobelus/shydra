@@ -1,5 +1,6 @@
 require "shydra/version"
+require "typhoeus"
+require "shopify_api"
 
 module Shydra
-  # Your code goes here...
 end
