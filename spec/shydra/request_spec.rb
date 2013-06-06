@@ -62,9 +62,17 @@ describe "Shydra::Request" do
       it "returns a hash of product attributes for an id request" do
         response = Typhoeus::Response.new(code: 200, body: "{\"product\":{\"body_html\":\"yo yo yo baby pop\",\"id\":137632345}}")
         Typhoeus.stub(/cronin/).and_return(response)
-        response = Shydra::Request.new(:product, :count).run
+        response = Shydra::Request.new(:product, id: 137632345).run
 
-        expect(response.data).to eq( {id:  137632345})
+        expect(response.data).to eq( {"body_html"=>"yo yo yo baby pop", "id"=>137632345})
+      end
+
+      it "returns an array of hashes of product attributes for an collection request" do
+        response = Typhoeus::Response.new(code: 200, body: "{\"products\":[{\"body_html\":\"yo yo yo baby pop\",\"id\":123},{\"body_html\":\"yowza\",\"id\":456}]}")
+        Typhoeus.stub(/cronin/).and_return(response)
+        response = Shydra::Request.new(:product).run
+
+        expect(response.data).to eq( [{"body_html"=>"yo yo yo baby pop", "id"=>123}, {"body_html"=>"yowza", "id"=>456}] )
       end
     end
   end

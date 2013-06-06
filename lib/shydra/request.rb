@@ -41,6 +41,9 @@ module Shydra
         @data_root = 'count'
       elsif @id
         path << @id.to_s
+        @data_root = @resource
+      else
+        @data_root = @resource.pluralize
       end
 
       path = path.join('/') + '.json'
