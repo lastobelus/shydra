@@ -5,7 +5,9 @@ require 'shydra/request'
 
 describe "Shydra::Request" do
   before do
+    @shopify_headers = {"X-Shopify-Access-Token"=>"yyyyyyyyy"}
      ShopifyAPI::Base.stub(:site).and_return(URI("https://xxxx:yyyy@cronin.myshopify.com/admin/"))
+     ShopifyAPI::Base.stub(:headers).and_return(@shopify_headers)
   end
 
   describe "URIs" do
@@ -16,6 +18,10 @@ describe "Shydra::Request" do
 
     it "gets the base url from Shopify API" do
       expect(Shydra::Request.base_uri).to eq(store_uri)
+    end
+
+    it "gets headers from Shopify API" do
+      expect(Shydra::Request.new(:product).options[:headers]["X-Shopify-Access-Token"]).to eq("yyyyyyyyy")
     end
 
     it "creates resource collection uri" do

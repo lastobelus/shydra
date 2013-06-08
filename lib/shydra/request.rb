@@ -11,6 +11,10 @@ module Shydra
       ShopifyAPI::Base.site
     end
 
+    def self.headers
+      ShopifyAPI::Base.headers
+    end
+
     def initialize(*args)
       @options = args.extract_options!
       @count = @options.delete(:count)
@@ -23,18 +27,24 @@ module Shydra
       @resource ||= 'shop'
       @resource = @resource.to_s
 
+      @parent_resource = @options.delete(:parent_resource)
+      @parent_resource, @parent_resource_id = @parent_resource.first if @parent_resource
+
+
       @id = @options.delete(:id)
 
       @options[:limit] ||= SHOPIFY_API_MAX_LIMIT
 
       resource_path = @resource
       resource_path = resource_path.pluralize unless (@resource == 'shop')
+      resource_path = [@parent_resource.to_s.pluralize, @parent_resource_id, resource_path].join('/') if @parent_resource
 
 
       path = [resource_path]
       path.unshift('admin') unless Request.base_uri.path[-1] == '/' #handle quirk of URI.merge
 
-      @data_root = @resource
+      @data_root = nil
+
       if @count
         path << 'count'
         @options.delete(:limit)
@@ -50,7 +60,7 @@ module Shydra
       uri = Request.base_uri.merge(path)
       uri.query = @options.to_param unless @options.empty?
 
-      super(uri.to_s)
+      super(uri.to_s, headers: Request.headers)
     end
 
     def finish(response, bypass_memoization = nil)

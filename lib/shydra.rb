@@ -3,6 +3,10 @@ require "typhoeus"
 require "shopify_api"
 require 'shydra/request'
 require 'shydra/response'
+require 'shydra/resource'
+require 'shydra/resources/product'
+require 'shydra/resources/metafield'
+require 'shydra/resources/variant'
 
 module Shydra
   class << self
