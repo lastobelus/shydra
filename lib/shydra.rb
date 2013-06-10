@@ -8,6 +8,8 @@ require 'shydra/resources/product'
 require 'shydra/resources/metafield'
 require 'shydra/resources/variant'
 
+require 'shydra/batch'
+
 module Shydra
   class << self
     attr_accessor :max_concurrency
