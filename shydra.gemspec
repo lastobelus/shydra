@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
 
+  spec.add_runtime_dependency "activeresource", '=3.2.13'
   spec.add_runtime_dependency "typhoeus", ">= 0.6.3"
   spec.add_runtime_dependency "shopify_api", ">= 3.0.3"
   spec.add_runtime_dependency "oj"
