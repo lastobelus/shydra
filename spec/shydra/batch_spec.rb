@@ -28,14 +28,14 @@ describe Shydra::Batch do
       r1 = request_and_response_mock("request 1", 'response 1')
       r2 = request_and_response_mock("request 2", 'response 2')
       subject << r1; subject << r2
-      expect(subject.finished?).to be_true
+      expect(subject.finished?).to be_truthy
     end
 
     it "returns false when not all the requests have a response" do
       r1 = request_and_response_mock("request 1", 'response 1')
       r2 = request_and_response_mock("request 2", nil)
       subject << r1; subject << r2
-      expect(subject.finished?).to be_false
+      expect(subject.finished?).to be_falsey
     end    
   end
 
@@ -47,7 +47,7 @@ describe Shydra::Batch do
       r2 = request_and_response_mock("request 2", 'response 2', code: 500)
       subject << r1; subject << r2
       subject << r1; subject << r2
-      expect(subject.over_limit?).to be_false
+      expect(subject.over_limit?).to be_falsey
     end
 
     it "returns true when any request has response code 429" do
@@ -55,7 +55,7 @@ describe Shydra::Batch do
       r2 = request_and_response_mock("request 2", 'response 2', code: 429)
       r3 = request_and_response_mock("request 3") # over_limit will return true after finding the first 429
       subject << r1; subject << r2; subject << r3
-      expect(subject.over_limit?).to be_true
+      expect(subject.over_limit?).to be_truthy
     end    
   end
 
